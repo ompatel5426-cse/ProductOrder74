@@ -1,0 +1,192 @@
+<!DOCTYPE html> 
+<html> 
+ 
+<head> 
+ 
+    <title>Online Product Order</title> 
+ 
+    <style> 
+ 
+        body { 
+            font-family: Arial; 
+            background-color: #eeeeee; 
+        } 
+ 
+        #mainTitle { 
+            text-align: center;           /* : ki error thi */ 
+            color: darkred; 
+        } 
+ 
+        #orderBox {          /* # ki error thi */ 
+            width: 450px; 
+            border: 2px solid black; 
+            margin: 20px auto; 
+            padding: 20px;  /* px ki error thi */ 
+        } 
+ 
+        .field { 
+            margin-bottom: 15px; 
+        } 
+ 
+        .bill { 
+            width: 450px; 
+            border: 2px solid green; 
+            margin: 20px auto; 
+            padding: 15px; 
+        } 
+ 
+        #orderButton { 
+            padding: 10px; 
+            background: lightblue; 
+        } 
+ 
+    </style> 
+ 
+</head> 
+ 
+<body> 
+ 
+<h1 id="mainTitle">Online Product Order</h1> 
+ 
+<div id="orderBox"> 
+ 
+    <div class="field"> 
+ 
+        <label for="customer">Customer Name:</label> 
+ 
+        <input type="text" id="customer"> 
+ 
+    </div> 
+ 
+    <div class="field"> 
+ 
+        <label for="product">Select Product:</label> 
+ 
+        <select id="product"> 
+ 
+            <option value="">Select Product</option> 
+ 
+            <option value="Laptop">Laptop - Rs. 50000</option> 
+ 
+            <option value="Mobile">Mobile - Rs. 20000</option> 
+ 
+            <option value="Keyboard">Keyboard - Rs. 1500</option> 
+ 
+        </select> 
+ 
+    </div> 
+ 
+    <div class="field"> 
+ 
+        <label for="quantity">Quantity:</label> 
+ 
+        <input type="number" id="quantity" min="1">
+        <!-- type="number" aur min="1" add kiya --> 
+ 
+    </div> 
+ 
+    <button id="orderButton" 
+            onclick="calculateBill()"> 
+ 
+        Generate Bill 
+ 
+    </button> 
+ 
+</div> 
+ 
+<div id="billBox" class="bill"> 
+ 
+    Bill will appear here. 
+ 
+</div> 
+ 
+<script> 
+ 
+function calculateBill() { 
+ 
+    var customer = 
+        document.getElementById("customer").value; 
+ 
+    var product = 
+        document.getElementById("product").value; 
+ 
+    var quantity = 
+        document.getElementById("quantity").value; 
+ 
+    if (customer == "" || quantity == "" || product == "") { 
+ 
+        alert("Enter Customer Name, Quantity and Product"); 
+        return;
+ 
+    } 
+
+    if (Number(quantity) <= 0 || isNaN(Number(quantity))) {
+
+        alert("Enter a valid quantity");
+        return;
+
+    }
+ 
+    var price = 0; 
+ 
+    if (product == "Laptop") { 
+        price = 50000; 
+    } 
+ 
+    if (product == "Mobile") { 
+        price = 20000; 
+    } 
+ 
+    if (product == "Keyboard") { 
+        price = 1500; 
+    } 
+ 
+    var total = 
+        price * Number(quantity); 
+ 
+    var customerType = 
+        prompt("Enter Customer Type: Regular or Premium"); 
+
+    /* Customer Type validation */
+    if (customerType == null || customerType.trim() == "") {
+
+        alert("Customer Type is required");
+        return;
+
+    }
+
+    if (customerType != "Regular" && customerType != "Premium") {
+
+        alert("Customer Type must be Regular or Premium");
+        return;
+
+    }
+ 
+    var order = 
+        confirm("Do you want to place this order?"); 
+ 
+    if (order == false) { 
+ 
+        alert("Order cancelled"); 
+        return; 
+ 
+    }     
+ 
+    document.getElementById("billBox").innerHTML = 
+        "<h2>Order Bill</h2>" + 
+        "Customer: " + customer + 
+        "<br>Product: " + product + 
+        "<br>Price: " + price + 
+        "<br>Quantity: " + quantity + 
+        "<br>Total Amount: " + total + 
+        "<br>Customer Type: " + customerType; 
+
+    alert("Order placed successfully");
+ 
+} 
+ 
+</script> 
+ 
+</body> 
+ 
+</html>
